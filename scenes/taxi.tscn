@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://ds27pk8m4f4qq"]
+
+[ext_resource type="Texture2D" uid="uid://c5jui4act2jir" path="res://assets/Cars Vertical.png" id="1_far58"]
+[ext_resource type="Script" path="res://scripts/car-npc-movement.gd" id="1_v5qov"]
+[ext_resource type="Texture2D" uid="uid://g141hc2ws1bq" path="res://assets/Cars Horizontal.png" id="2_spp0n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbqj1"]
+atlas = ExtResource("1_far58")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfkkt"]
+atlas = ExtResource("2_spp0n")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl6to"]
+atlas = ExtResource("2_spp0n")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75sl0"]
+atlas = ExtResource("1_far58")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xwwtx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbqj1")
+}],
+"loop": true,
+"name": &"move-down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfkkt")
+}],
+"loop": true,
+"name": &"move-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl6to")
+}],
+"loop": true,
+"name": &"move-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75sl0")
+}],
+"loop": true,
+"name": &"move-up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy8gu"]
+size = Vector2(14, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rudf"]
+size = Vector2(17, 13)
+
+[node name="Taxi" type="CharacterBody2D"]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_v5qov")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_xwwtx")
+animation = &"move-down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_dy8gu")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(30, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-14.5, 7.5)
+shape = SubResource("RectangleShape2D_8rudf")

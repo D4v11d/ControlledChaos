@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3 uid="uid://dcj0dla0v74sd"]
+
+[ext_resource type="Texture2D" uid="uid://c5jui4act2jir" path="res://assets/Cars Vertical.png" id="1_2fyb7"]
+[ext_resource type="Script" path="res://scripts/car-movement.gd" id="1_g8gml"]
+[ext_resource type="Texture2D" uid="uid://g141hc2ws1bq" path="res://assets/Cars Horizontal.png" id="1_oxovc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w44jd"]
+atlas = ExtResource("1_2fyb7")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26a6s"]
+atlas = ExtResource("1_oxovc")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tsxc"]
+atlas = ExtResource("1_oxovc")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbtes"]
+atlas = ExtResource("1_2fyb7")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0d2uu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w44jd")
+}],
+"loop": true,
+"name": &"move-down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26a6s")
+}],
+"loop": true,
+"name": &"move-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tsxc")
+}],
+"loop": true,
+"name": &"move-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbtes")
+}],
+"loop": true,
+"name": &"move-up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0rey"]
+size = Vector2(10, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmq0v"]
+size = Vector2(38, 35)
+
+[node name="PlayerCar" type="CharacterBody2D"]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_g8gml")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_0d2uu")
+animation = &"move-left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_x0rey")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2(-1, 5.5)
+shape = SubResource("RectangleShape2D_gmq0v")
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
