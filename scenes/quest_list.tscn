@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuymwxltafbkk"]
+
+[ext_resource type="Script" path="res://scripts/quest_list.gd" id="1_22pin"]
+[ext_resource type="Texture2D" uid="uid://dhvnxr3sptf8o" path="res://assets/UIGray/button_square_depth_border.png" id="1_jnr3b"]
+[ext_resource type="PackedScene" uid="uid://64fet5svcs81" path="res://scenes/quest_item.tscn" id="2_88s5e"]
+
+[node name="QuestList" type="MarginContainer"]
+offset_right = 131.0
+offset_bottom = 281.0
+script = ExtResource("1_22pin")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+z_index = 10
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("1_jnr3b")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 12
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 123.0
+offset_bottom = 241.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -15
+
+[node name="QuestItem2" parent="NinePatchRect/ScrollContainer/VBoxContainer" instance=ExtResource("2_88s5e")]
+layout_mode = 2

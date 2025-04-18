@@ -1,11 +1,16 @@
-[gd_scene load_steps=13 format=4 uid="uid://c8b4qj8rpml1a"]
+[gd_scene load_steps=18 format=4 uid="uid://c8b4qj8rpml1a"]
 
 [ext_resource type="Texture2D" uid="uid://wp47mm7k2m2v" path="res://assets/tilemap_packed.png" id="1_p5hso"]
 [ext_resource type="PackedScene" uid="uid://dj1uy1k8l403l" path="res://scenes/player.tscn" id="2_farh0"]
 [ext_resource type="PackedScene" uid="uid://dcj0dla0v74sd" path="res://scenes/player-car.tscn" id="3_gl6v6"]
+[ext_resource type="Texture2D" uid="uid://c0lcrieoc3o1h" path="res://assets/UIBlue/button_rectangle_depth_gradient.png" id="4_571hw"]
 [ext_resource type="PackedScene" uid="uid://c6j5flaqbc2uq" path="res://scenes/car_npc.tscn" id="4_pyqpy"]
+[ext_resource type="Texture2D" uid="uid://bfs053q5o5ijl" path="res://assets/UIBlue/button_rectangle_flat.png" id="5_bhr0e"]
 [ext_resource type="PackedScene" uid="uid://b8y8gls05j0hf" path="res://scenes/corner_area.tscn" id="5_cjsbb"]
 [ext_resource type="PackedScene" uid="uid://ds27pk8m4f4qq" path="res://scenes/taxi.tscn" id="6_d33l3"]
+[ext_resource type="Texture2D" uid="uid://dxjjdbst0fvdf" path="res://assets/UIBlue/button_rectangle_gloss.png" id="6_mxo1v"]
+[ext_resource type="PackedScene" uid="uid://diihl4xfq7p4v" path="res://scenes/old_npc.tscn" id="7_aqvf3"]
+[ext_resource type="PackedScene" uid="uid://cuymwxltafbkk" path="res://scenes/quest_list.tscn" id="8_av1a0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v5v51"]
 texture = ExtResource("1_p5hso")
@@ -1802,29 +1807,79 @@ position = Vector2(234, 18)
 position = Vector2(0, 4)
 zoom = Vector2(2.3, 2.3)
 
+[node name="TextureButton" type="TextureButton" parent="Player/Camera2D"]
+z_index = 9
+offset_left = 180.0
+offset_top = -133.0
+offset_right = 372.0
+offset_bottom = -69.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("4_571hw")
+texture_pressed = ExtResource("5_bhr0e")
+texture_hover = ExtResource("6_mxo1v")
+
+[node name="Label" type="Label" parent="Player/Camera2D/TextureButton"]
+layout_mode = 0
+offset_right = 190.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 32
+text = "Quests"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestList" parent="Player/Camera2D" instance=ExtResource("8_av1a0")]
+offset_left = 117.0
+offset_top = -138.0
+offset_right = 248.0
+offset_bottom = 143.0
+
 [node name="PlayerCar" parent="." instance=ExtResource("3_gl6v6")]
 position = Vector2(129, 91)
 collision_layer = 4
 collision_mask = 4
 is_player_car = true
 
-[node name="RoadCorners" type="Node2D" parent="."]
+[node name="NpcDirectionChangers" type="Node2D" parent="."]
 
-[node name="CornerArea" parent="RoadCorners" instance=ExtResource("5_cjsbb")]
+[node name="c" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
 position = Vector2(474, 73)
 possible_directions = Array[Vector2]([Vector2(0, -1)])
 
-[node name="CornerArea2" parent="RoadCorners" instance=ExtResource("5_cjsbb")]
+[node name="c2" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
 position = Vector2(470, -170)
 possible_directions = Array[Vector2]([Vector2(-1, 0)])
 
-[node name="CornerArea3" parent="RoadCorners" instance=ExtResource("5_cjsbb")]
+[node name="c3" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
 position = Vector2(138, -171)
 possible_directions = Array[Vector2]([Vector2(0, 1)])
 
-[node name="CornerArea4" parent="RoadCorners" instance=ExtResource("5_cjsbb")]
+[node name="c4" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
 position = Vector2(141, 72)
 possible_directions = Array[Vector2]([Vector2(1, 0)])
+
+[node name="c5" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
+position = Vector2(-13, -217)
+possible_directions = Array[Vector2]([Vector2(0, -1)])
+
+[node name="c6" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
+position = Vector2(116, -222)
+possible_directions = Array[Vector2]([Vector2(-1, 0)])
+
+[node name="c7" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
+position = Vector2(-7, -312)
+possible_directions = Array[Vector2]([Vector2(-1, 0)])
+
+[node name="c8" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
+position = Vector2(115, -131)
+possible_directions = Array[Vector2]([Vector2(0, -1)])
+
+[node name="c9" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
+position = Vector2(-167, -132)
+possible_directions = Array[Vector2]([Vector2(1, 0)])
+
+[node name="c10" parent="NpcDirectionChangers" instance=ExtResource("5_cjsbb")]
+position = Vector2(-167, -310)
+possible_directions = Array[Vector2]([Vector2(0, 1)])
 
 [node name="Cars" type="Node2D" parent="."]
 
@@ -1834,6 +1889,7 @@ initial_direction = Vector2(-1, 0)
 
 [node name="Taxi" parent="Cars" instance=ExtResource("6_d33l3")]
 position = Vector2(110, 60)
+speed = 100.0
 
 [node name="CarNpc2" parent="Cars" instance=ExtResource("4_pyqpy")]
 position = Vector2(323, 61)
@@ -1841,3 +1897,12 @@ position = Vector2(323, 61)
 [node name="Taxi2" parent="Cars" instance=ExtResource("6_d33l3")]
 position = Vector2(236, -176)
 initial_direction = Vector2(-1, 0)
+speed = 100.0
+
+[node name="Npcs" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="OldNpc" parent="Npcs" instance=ExtResource("7_aqvf3")]
+position = Vector2(116, -74)
+initial_direction = Vector2(0, -1)
+npc_name = "Name"

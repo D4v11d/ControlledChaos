@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ds27pk8m4f4qq"]
 
 [ext_resource type="Texture2D" uid="uid://c5jui4act2jir" path="res://assets/Cars Vertical.png" id="1_far58"]
-[ext_resource type="Script" path="res://scripts/car-npc-movement.gd" id="1_v5qov"]
+[ext_resource type="Script" path="res://scripts/npc-movement.gd" id="1_v5qov"]
 [ext_resource type="Texture2D" uid="uid://g141hc2ws1bq" path="res://assets/Cars Horizontal.png" id="2_spp0n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbqj1"]

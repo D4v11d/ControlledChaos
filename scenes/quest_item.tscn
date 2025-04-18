@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://64fet5svcs81"]
+
+[ext_resource type="Script" path="res://scripts/quest_item.gd" id="1_p7b0a"]
+[ext_resource type="Texture2D" uid="uid://bfs053q5o5ijl" path="res://assets/UIBlue/button_rectangle_flat.png" id="2_r0t0v"]
+
+[node name="QuestItem" type="MarginContainer"]
+offset_left = 14.0
+offset_top = 20.0
+offset_right = 123.0
+offset_bottom = 45.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+script = ExtResource("1_p7b0a")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 6
+
+[node name="ButtonRectangleFlat" type="Sprite2D" parent="MarginContainer"]
+position = Vector2(56, 15)
+scale = Vector2(0.5625, 0.394875)
+texture = ExtResource("2_r0t0v")
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Testing a quest"

@@ -3,7 +3,6 @@ class_name CornerArea extends Area2D
 @export var possible_directions: Array[Vector2] = [] 
 
 func _ready() -> void:
-	collision_mask = 1 << 1  # Detects layer 2 (CarNpc)
 	body_entered.connect(_on_body_entered)
 
 func get_direction() -> Vector2:
@@ -17,9 +16,9 @@ func get_direction() -> Vector2:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is CarNpc:
-		var carNpc = body as CarNpc
+	if body is Npc:
+		var npc = body as Npc
 		var new_direction = get_direction()
 		if new_direction != Vector2.ZERO:
-			carNpc.current_direction = new_direction
-			carNpc.update_animation()
+			npc.current_direction = new_direction
+			npc.update_animation()
