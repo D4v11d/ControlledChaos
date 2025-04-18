@@ -9,16 +9,19 @@ var text_box
 var text_box_position: Vector2
 
 var is_dialog_active = false
-var can_advance_line =  false
+var can_advance_line = false
 
-signal endOfDialog
+var current_detection: PlayerDetection  # Store the PlayerDetection instance
 
-func start_dialog(position: Vector2, lines: Array[String]):
+signal endOfDialog(detection: PlayerDetection)
+
+func start_dialog(position: Vector2, lines: Array[String], detection: PlayerDetection):
 	if is_dialog_active:
 		return
 	
 	dialog_lines = lines
 	text_box_position = position
+	current_detection = detection  # Store the detection instance
 	_show_text_box()
 	
 	is_dialog_active = true
@@ -43,7 +46,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if current_line_index >= dialog_lines.size():
 			is_dialog_active = false
 			current_line_index = 0
-			endOfDialog.emit()
+			endOfDialog.emit(current_detection)  # Emit with stored detection
+			current_detection = null  # Clear to prevent accidental reuse
 			return
 			
 		_show_text_box()

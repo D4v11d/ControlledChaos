@@ -3,16 +3,20 @@ class_name Npc extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var player_detection = $PlayerDetection if has_node("PlayerDetection") else null
+@onready var quest_icon: Sprite2D = $QuestIcon
 
 @export var initial_direction: Vector2
 @export var speed: float
 
-@export var npc_name: String = "" # Empty for NPC Car, set in Inspector for NPC
+@export var npc_name: String = ""
+@export var quest_id: int
+@export var has_quest: bool
+@export var is_destination_npc: bool
 
 const STOP_THRESHOLD = 5.0
 
-var current_direction := Vector2.RIGHT
-var last_direction := Vector2.RIGHT
+var current_direction := Vector2.ZERO
+var last_direction := Vector2.DOWN
 var target_position: Vector2
 var is_moving := true
 
@@ -23,6 +27,9 @@ func _ready() -> void:
 	
 	if player_detection:
 		player_detection.set_npc_name(npc_name)
+		
+	if has_quest:
+		quest_icon.visible = true
 
 func _physics_process(delta: float) -> void:
 	if not is_moving:

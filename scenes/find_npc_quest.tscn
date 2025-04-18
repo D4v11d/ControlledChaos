@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://detwn6xq3asxf"]
+
+[ext_resource type="Script" path="res://scripts/quest.gd" id="1_m4reo"]
+
+[node name="FindNPCQuest" type="Node2D"]
+script = ExtResource("1_m4reo")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://dj1uy1k8l403l"]
+[gd_scene load_steps=20 format=3 uid="uid://dj1uy1k8l403l"]
 
 [ext_resource type="Script" path="res://scripts/player-movement.gd" id="1_h20tm"]
 [ext_resource type="Texture2D" uid="uid://wp47mm7k2m2v" path="res://assets/tilemap_packed.png" id="1_sj5nj"]
+[ext_resource type="Texture2D" uid="uid://b0hnyjoj4jag6" path="res://assets/dialog/E-Key.png" id="3_japfg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpol8"]
 atlas = ExtResource("1_sj5nj")
@@ -132,6 +133,21 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_gm04o"]
 radius = 3.16228
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmgun"]
+atlas = ExtResource("3_japfg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d831q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmgun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 collision_mask = 3
@@ -145,3 +161,13 @@ animation = &"walk-back"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_gm04o")
+
+[node name="PressE" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 5
+texture_filter = 1
+position = Vector2(0, -13)
+scale = Vector2(0.335938, 0.351563)
+sprite_frames = SubResource("SpriteFrames_d831q")
+autoplay = "default"
+frame_progress = 0.653533

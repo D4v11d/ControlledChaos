@@ -1,16 +1,19 @@
-[gd_scene load_steps=18 format=4 uid="uid://c8b4qj8rpml1a"]
+[gd_scene load_steps=21 format=4 uid="uid://c8b4qj8rpml1a"]
 
 [ext_resource type="Texture2D" uid="uid://wp47mm7k2m2v" path="res://assets/tilemap_packed.png" id="1_p5hso"]
 [ext_resource type="PackedScene" uid="uid://dj1uy1k8l403l" path="res://scenes/player.tscn" id="2_farh0"]
+[ext_resource type="Texture2D" uid="uid://b2v4tkyaehay4" path="res://assets/button-depth.png" id="3_dwh8q"]
 [ext_resource type="PackedScene" uid="uid://dcj0dla0v74sd" path="res://scenes/player-car.tscn" id="3_gl6v6"]
-[ext_resource type="Texture2D" uid="uid://c0lcrieoc3o1h" path="res://assets/UIBlue/button_rectangle_depth_gradient.png" id="4_571hw"]
+[ext_resource type="Texture2D" uid="uid://qqi5kr6pi1by" path="res://assets/button.png" id="3_qdkn6"]
 [ext_resource type="PackedScene" uid="uid://c6j5flaqbc2uq" path="res://scenes/car_npc.tscn" id="4_pyqpy"]
-[ext_resource type="Texture2D" uid="uid://bfs053q5o5ijl" path="res://assets/UIBlue/button_rectangle_flat.png" id="5_bhr0e"]
+[ext_resource type="Texture2D" uid="uid://d124rct7gqy7n" path="res://assets/button-hover.png" id="5_b23lr"]
 [ext_resource type="PackedScene" uid="uid://b8y8gls05j0hf" path="res://scenes/corner_area.tscn" id="5_cjsbb"]
+[ext_resource type="FontFile" uid="uid://bmwodanjitnsg" path="res://assets/font/Tiny5-Regular.ttf" id="6_atp0h"]
 [ext_resource type="PackedScene" uid="uid://ds27pk8m4f4qq" path="res://scenes/taxi.tscn" id="6_d33l3"]
-[ext_resource type="Texture2D" uid="uid://dxjjdbst0fvdf" path="res://assets/UIBlue/button_rectangle_gloss.png" id="6_mxo1v"]
 [ext_resource type="PackedScene" uid="uid://diihl4xfq7p4v" path="res://scenes/old_npc.tscn" id="7_aqvf3"]
 [ext_resource type="PackedScene" uid="uid://cuymwxltafbkk" path="res://scenes/quest_list.tscn" id="8_av1a0"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="12_3h6ds"]
+[ext_resource type="PackedScene" uid="uid://detwn6xq3asxf" path="res://scenes/find_npc_quest.tscn" id="14_van06"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v5v51"]
 texture = ExtResource("1_p5hso")
@@ -1801,37 +1804,42 @@ tile_set = SubResource("TileSet_2w5c2")
 
 [node name="Player" parent="." instance=ExtResource("2_farh0")]
 y_sort_enabled = true
-position = Vector2(234, 18)
+position = Vector2(117, -99)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 4)
 zoom = Vector2(2.3, 2.3)
 
-[node name="TextureButton" type="TextureButton" parent="Player/Camera2D"]
+[node name="QuestsButton" type="TextureButton" parent="Player/Camera2D"]
 z_index = 9
-offset_left = 180.0
-offset_top = -133.0
-offset_right = 372.0
-offset_bottom = -69.0
-scale = Vector2(0.3, 0.3)
-texture_normal = ExtResource("4_571hw")
-texture_pressed = ExtResource("5_bhr0e")
-texture_hover = ExtResource("6_mxo1v")
+texture_filter = 1
+offset_left = 171.0
+offset_top = -136.0
+offset_right = 263.0
+offset_bottom = -109.0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("3_dwh8q")
+texture_pressed = ExtResource("3_qdkn6")
+texture_hover = ExtResource("5_b23lr")
 
-[node name="Label" type="Label" parent="Player/Camera2D/TextureButton"]
+[node name="Label" type="Label" parent="Player/Camera2D/QuestsButton"]
 layout_mode = 0
-offset_right = 190.0
-offset_bottom = 57.0
-theme_override_font_sizes/font_size = 32
+offset_right = 90.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_atp0h")
+theme_override_font_sizes/font_size = 16
 text = "Quests"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="QuestList" parent="Player/Camera2D" instance=ExtResource("8_av1a0")]
-offset_left = 117.0
-offset_top = -138.0
-offset_right = 248.0
-offset_bottom = 143.0
+visible = false
+z_index = 10
+offset_left = 167.0
+offset_top = -127.0
+offset_right = 207.0
+offset_bottom = -87.0
 
 [node name="PlayerCar" parent="." instance=ExtResource("3_gl6v6")]
 position = Vector2(129, 91)
@@ -1905,4 +1913,22 @@ y_sort_enabled = true
 [node name="OldNpc" parent="Npcs" instance=ExtResource("7_aqvf3")]
 position = Vector2(116, -74)
 initial_direction = Vector2(0, -1)
-npc_name = "Name"
+npc_name = "Crazy Bob"
+quest_id = 1
+has_quest = true
+
+[node name="OldNpc2" parent="Npcs" instance=ExtResource("7_aqvf3")]
+position = Vector2(-14, -185)
+npc_name = "Crazy John"
+quest_id = 1
+is_destination_npc = true
+
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("12_3h6ds")
+
+[node name="FindNPCQuest1" parent="." node_paths=PackedStringArray("npcToFind") instance=ExtResource("14_van06")]
+npcToFind = NodePath("../Npcs/OldNpc2")
+id = 1
+text = "Find the man in the middle of the park"
+
+[connection signal="pressed" from="Player/Camera2D/QuestsButton" to="GameManager" method="_on_quests_button_pressed"]

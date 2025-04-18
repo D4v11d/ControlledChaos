@@ -146,8 +146,8 @@ speed = 20.0
 y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_f1at4")
-animation = &"move-right"
-frame_progress = 0.454177
+animation = &"standing-front"
+autoplay = "standing-front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
@@ -161,6 +161,7 @@ position = Vector2(1, 1.5)
 shape = SubResource("RectangleShape2D_0krbp")
 
 [node name="QuestIcon" type="Sprite2D" parent="."]
+visible = false
 z_index = 5
 texture_filter = 1
 position = Vector2(0, -12)

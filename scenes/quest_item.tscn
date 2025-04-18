@@ -1,29 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://64fet5svcs81"]
+[gd_scene load_steps=5 format=3 uid="uid://64fet5svcs81"]
 
 [ext_resource type="Script" path="res://scripts/quest_item.gd" id="1_p7b0a"]
-[ext_resource type="Texture2D" uid="uid://bfs053q5o5ijl" path="res://assets/UIBlue/button_rectangle_flat.png" id="2_r0t0v"]
+[ext_resource type="Texture2D" uid="uid://qqi5kr6pi1by" path="res://assets/button.png" id="1_yhp0c"]
+[ext_resource type="FontFile" uid="uid://bmwodanjitnsg" path="res://assets/font/Tiny5-Regular.ttf" id="2_o55b4"]
+[ext_resource type="Texture2D" uid="uid://b27t3awlc0x6l" path="res://assets/dialog/exclamation.png" id="3_y0mc8"]
 
-[node name="QuestItem" type="MarginContainer"]
-offset_left = 14.0
-offset_top = 20.0
-offset_right = 123.0
-offset_bottom = 45.0
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 0
+[node name="QuestItem" type="TextureRect"]
+texture_filter = 1
+offset_right = 96.0
+offset_bottom = 25.0
+texture = ExtResource("1_yhp0c")
 script = ExtResource("1_p7b0a")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 6
-
-[node name="ButtonRectangleFlat" type="Sprite2D" parent="MarginContainer"]
-position = Vector2(56, 15)
-scale = Vector2(0.5625, 0.394875)
-texture = ExtResource("2_r0t0v")
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 88.0
+offset_bottom = 23.0
 
 [node name="Label" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(32, 16)
 layout_mode = 2
-text = "Testing a quest"
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_o55b4")
+theme_override_font_sizes/font_size = 8
+text = "we have to test the text on top of the exclamatio"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Exclamation" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 2.0
+offset_right = 92.0
+offset_bottom = 18.0
+texture = ExtResource("3_y0mc8")
