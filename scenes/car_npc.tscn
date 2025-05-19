@@ -59,7 +59,7 @@ animations = [{
 size = Vector2(14, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewcny"]
-size = Vector2(17, 13)
+size = Vector2(19, 17)
 
 [node name="CarNpc" type="CharacterBody2D"]
 collision_layer = 7
@@ -70,16 +70,18 @@ speed = 100.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_nsv56")
-animation = &"move-right"
+animation = &"move-up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_vaab2")
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
+[node name="PlayerHitArea" type="Area2D" parent="."]
 position = Vector2(30, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-14.5, 7.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitArea"]
+position = Vector2(-29.5, 7.5)
 shape = SubResource("RectangleShape2D_ewcny")
+debug_color = Color(0.992157, 0.0313726, 0.184314, 0.470588)
+
+[connection signal="body_entered" from="PlayerHitArea" to="." method="_on_player_hit_area_body_entered"]

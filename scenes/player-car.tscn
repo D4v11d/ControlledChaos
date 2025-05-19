@@ -1,30 +1,33 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcj0dla0v74sd"]
+[gd_scene load_steps=16 format=3 uid="uid://dcj0dla0v74sd"]
 
 [ext_resource type="Texture2D" uid="uid://c5jui4act2jir" path="res://assets/Cars Vertical.png" id="1_2fyb7"]
 [ext_resource type="Script" path="res://scripts/car-movement.gd" id="1_g8gml"]
 [ext_resource type="Texture2D" uid="uid://g141hc2ws1bq" path="res://assets/Cars Horizontal.png" id="1_oxovc"]
+[ext_resource type="Texture2D" uid="uid://b27t3awlc0x6l" path="res://assets/dialog/exclamation.png" id="4_ix37h"]
+[ext_resource type="Texture2D" uid="uid://b0hnyjoj4jag6" path="res://assets/dialog/E-Key.png" id="5_bwi6t"]
+[ext_resource type="FontFile" uid="uid://bmwodanjitnsg" path="res://assets/font/Tiny5-Regular.ttf" id="6_aviat"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w44jd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv5jk"]
 atlas = ExtResource("1_2fyb7")
-region = Rect2(32, 32, 16, 32)
+region = Rect2(16, 0, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_26a6s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s32st"]
 atlas = ExtResource("1_oxovc")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8tsxc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8que"]
 atlas = ExtResource("1_oxovc")
-region = Rect2(32, 32, 32, 32)
+region = Rect2(64, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bbtes"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrvit"]
 atlas = ExtResource("1_2fyb7")
-region = Rect2(0, 32, 16, 32)
+region = Rect2(16, 32, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0d2uu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w44jd")
+"texture": SubResource("AtlasTexture_kv5jk")
 }],
 "loop": true,
 "name": &"move-down",
@@ -32,7 +35,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_26a6s")
+"texture": SubResource("AtlasTexture_s32st")
 }],
 "loop": true,
 "name": &"move-left",
@@ -40,7 +43,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8tsxc")
+"texture": SubResource("AtlasTexture_k8que")
 }],
 "loop": true,
 "name": &"move-right",
@@ -48,7 +51,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bbtes")
+"texture": SubResource("AtlasTexture_wrvit")
 }],
 "loop": true,
 "name": &"move-up",
@@ -56,10 +59,25 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0rey"]
-size = Vector2(10, 12)
+size = Vector2(12, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmq0v"]
 size = Vector2(38, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q3ig"]
+atlas = ExtResource("5_bwi6t")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_crndn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7q3ig")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [node name="PlayerCar" type="CharacterBody2D"]
 collision_layer = 7
@@ -69,7 +87,8 @@ script = ExtResource("1_g8gml")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_0d2uu")
-animation = &"move-left"
+animation = &"move-down"
+autoplay = "move-right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
@@ -80,6 +99,55 @@ shape = SubResource("RectangleShape2D_x0rey")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 position = Vector2(-1, 5.5)
 shape = SubResource("RectangleShape2D_gmq0v")
+
+[node name="PendingQuest" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -11)
+texture = ExtResource("4_ix37h")
+
+[node name="Pickup" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 6
+texture_filter = 1
+position = Vector2(-14, -15)
+scale = Vector2(0.325, 0.434375)
+sprite_frames = SubResource("SpriteFrames_crndn")
+autoplay = "default"
+
+[node name="Label" type="Label" parent="Pickup"]
+visible = false
+offset_left = 26.6667
+offset_top = -10.0
+offset_right = 90.6667
+offset_bottom = 35.0
+scale = Vector2(0.8, 0.65)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_aviat")
+theme_override_font_sizes/font_size = 32
+text = "Pick up"
+
+[node name="Dropoff" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 6
+texture_filter = 1
+position = Vector2(-14, -15)
+scale = Vector2(0.325, 0.434375)
+sprite_frames = SubResource("SpriteFrames_crndn")
+autoplay = "default"
+
+[node name="Label" type="Label" parent="Dropoff"]
+visible = false
+offset_left = 26.6667
+offset_top = -10.0
+offset_right = 90.6667
+offset_bottom = 35.0
+scale = Vector2(0.8, 0.65)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_aviat")
+theme_override_font_sizes/font_size = 32
+text = "Drop off"
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]

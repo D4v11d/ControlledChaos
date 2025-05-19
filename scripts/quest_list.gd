@@ -9,6 +9,10 @@ var active_quests: Array[QuestItem] = []
 
 var quest_item_scene = preload("res://scenes/quest_item.tscn")
 
+func _ready() -> void:
+	add_active_quest("Find your car and drive it", 0)
+	add_active_quest("Look around for people with ! mark", 1)
+
 func add_active_quest(quest_text: String, quest_id: int) -> void:
 	if not quest_item_scene:
 		print("Error: QuestItem scene not set!")
@@ -44,4 +48,7 @@ func complete_quest(quest_id: int) -> void:
 
 func _on_close_button_pressed() -> void:
 	quest_list.visible = false
-	quests_button.disabled = false
+	quests_button.visible = true
+	
+	for quest in active_quests:
+		quest.pending_quest.visible = false

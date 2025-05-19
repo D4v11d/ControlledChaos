@@ -4,6 +4,10 @@ class_name CarMovement extends CharacterBody2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var player: Player = $"../Player"
 @onready var camera_2d: Camera2D = $"../Player/Camera2D"
+@onready var game_manager: GameManager = $"../GameManager"
+@onready var pending_quest: Sprite2D = $PendingQuest
+@onready var pickup: AnimatedSprite2D = $Pickup
+@onready var dropoff: AnimatedSprite2D = $Dropoff
 
 @export var is_player_car = false
 
@@ -16,15 +20,23 @@ var current_speed := 0.0
 var is_player_driving := false
 var can_drive_car := false
 
+var is_first_time_driving = true
+
 func _ready() -> void:
 	animated_sprite_2d.play("standing-front")
 	if not player or not camera_2d:
 		push_warning("Player or Camera2D not found!")
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("action") and can_drive_car and not is_player_driving:
+	if Input.is_action_just_pressed("drive") and can_drive_car and not is_player_driving:
 		enter_car()
-	elif Input.is_action_just_pressed("action") and is_player_driving:
+		# completes drive car quest
+		if is_first_time_driving:
+			is_first_time_driving = false
+			game_manager.complete_quest(0)
+			pending_quest.visible = false
+			
+	elif Input.is_action_just_pressed("drive") and is_player_driving:
 		exit_car()
 	
 	if is_player_driving:
@@ -107,7 +119,10 @@ func update_animation(direction: Vector2) -> void:
 func _on_player_detection_body_entered(body: Node2D) -> void:
 	if body is Player and is_player_car:
 		can_drive_car = true
+		player.talk.visible = false
+		player.drive.visible = true
 
 func _on_player_detection_body_exited(body: Node2D) -> void:
 	if body is Player and is_player_car:
 		can_drive_car = false
+		player.drive.visible = false

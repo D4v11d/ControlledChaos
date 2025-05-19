@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/corner_area.gd" id="1_yb3t7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aj6aj"]
-size = Vector2(7, 6.0625)
+size = Vector2(6, 6)
 
 [node name="CornerArea" type="Area2D"]
 script = ExtResource("1_yb3t7")

@@ -21,7 +21,7 @@ animations = [{
 }]
 
 [node name="DialogBox" type="MarginContainer"]
-z_index = 6
+z_index = 15
 offset_top = -5.0
 offset_right = 37.0
 offset_bottom = 31.0

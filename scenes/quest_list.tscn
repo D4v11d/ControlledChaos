@@ -1,25 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuymwxltafbkk"]
+[gd_scene load_steps=5 format=3 uid="uid://cuymwxltafbkk"]
 
 [ext_resource type="Script" path="res://scripts/quest_list.gd" id="1_22pin"]
 [ext_resource type="Texture2D" uid="uid://bl5y3mmowph3" path="res://assets/UiCozyFree.png" id="1_id1xg"]
 [ext_resource type="Texture2D" uid="uid://xt86w2h7jnfr" path="res://assets/icon_cross.png" id="2_hf0yw"]
+[ext_resource type="FontFile" uid="uid://bmwodanjitnsg" path="res://assets/font/Tiny5-Regular.ttf" id="5_udpni"]
 
 [node name="QuestList" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -8.0
-offset_top = 8.0
-offset_right = 32.0
-offset_bottom = 48.0
+offset_left = -105.0
+offset_top = 4.0
+offset_right = -1.0
+offset_bottom = 284.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.5
 script = ExtResource("1_22pin")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = -25.0
-offset_top = -12.0
-offset_right = 79.0
-offset_bottom = 268.0
+offset_right = 104.0
+offset_bottom = 280.0
 texture = ExtResource("1_id1xg")
 region_rect = Rect2(164, 167, 47, 80)
 patch_margin_left = 8
@@ -28,11 +29,16 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 18.0
-offset_right = 104.0
-offset_bottom = 267.0
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = 26.0
+offset_bottom = -9.0
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -44,13 +50,26 @@ size_flags_vertical = 3
 [node name="CloseButton" type="Button" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 57.0
-offset_top = -7.0
-offset_right = 74.0
-offset_bottom = 10.0
+offset_left = 79.0
+offset_top = 9.0
+offset_right = 96.0
+offset_bottom = 26.0
 theme_override_icons/icon = ExtResource("2_hf0yw")
 action_mode = 0
 flat = true
 expand_icon = true
+
+[node name="Title" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 82.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.467406, 0.307079, 0.0117265, 0.470588)
+theme_override_fonts/font = ExtResource("5_udpni")
+theme_override_font_sizes/font_size = 16
+text = "Quest List"
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,8 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://dj1uy1k8l403l"]
+[gd_scene load_steps=24 format=3 uid="uid://dj1uy1k8l403l"]
 
 [ext_resource type="Script" path="res://scripts/player-movement.gd" id="1_h20tm"]
 [ext_resource type="Texture2D" uid="uid://wp47mm7k2m2v" path="res://assets/tilemap_packed.png" id="1_sj5nj"]
 [ext_resource type="Texture2D" uid="uid://b0hnyjoj4jag6" path="res://assets/dialog/E-Key.png" id="3_japfg"]
+[ext_resource type="FontFile" uid="uid://bmwodanjitnsg" path="res://assets/font/Tiny5-Regular.ttf" id="4_ywkpw"]
+[ext_resource type="Texture2D" uid="uid://dq3xwidqvvuxr" path="res://assets/dialog/Space-Key.png" id="5_q3pcw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpol8"]
 atlas = ExtResource("1_sj5nj")
@@ -133,7 +135,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_gm04o"]
 radius = 3.16228
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tmgun"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q3ig"]
 atlas = ExtResource("3_japfg")
 region = Rect2(0, 0, 32, 32)
 
@@ -141,11 +143,26 @@ region = Rect2(0, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tmgun")
+"texture": SubResource("AtlasTexture_7q3ig")
 }],
 "loop": true,
 "name": &"default",
 "speed": 2.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc0xm"]
+atlas = ExtResource("5_q3pcw")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x8b3j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uc0xm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -156,18 +173,50 @@ script = ExtResource("1_h20tm")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_q1dkr")
-animation = &"walk-back"
+animation = &"standing-back"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_gm04o")
 
-[node name="PressE" type="AnimatedSprite2D" parent="."]
+[node name="Talk" type="AnimatedSprite2D" parent="."]
 visible = false
-z_index = 5
+z_index = 6
 texture_filter = 1
-position = Vector2(0, -13)
-scale = Vector2(0.335938, 0.351563)
+position = Vector2(-7.2, -15.05)
+scale = Vector2(0.325, 0.434375)
 sprite_frames = SubResource("SpriteFrames_d831q")
 autoplay = "default"
-frame_progress = 0.653533
+frame_progress = 0.114222
+
+[node name="Label" type="Label" parent="Talk"]
+offset_left = 26.6667
+offset_top = -10.0
+offset_right = 90.6667
+offset_bottom = 35.0
+scale = Vector2(0.8, 0.65)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ywkpw")
+theme_override_font_sizes/font_size = 32
+text = "Talk"
+
+[node name="Drive" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 6
+texture_filter = 1
+position = Vector2(-10, -15)
+scale = Vector2(0.35625, 0.45)
+sprite_frames = SubResource("SpriteFrames_x8b3j")
+
+[node name="Label" type="Label" parent="Drive"]
+offset_left = 36.6667
+offset_top = -10.0
+offset_right = 108.667
+offset_bottom = 26.0
+scale = Vector2(0.8, 0.65)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ywkpw")
+theme_override_font_sizes/font_size = 32
+text = "Drive"

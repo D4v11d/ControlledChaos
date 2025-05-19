@@ -7,8 +7,10 @@
 
 [node name="QuestItem" type="TextureRect"]
 texture_filter = 1
-offset_right = 96.0
-offset_bottom = 25.0
+offset_left = 41.0
+offset_top = 18.0
+offset_right = 137.0
+offset_bottom = 43.0
 texture = ExtResource("1_yhp0c")
 script = ExtResource("1_p7b0a")
 
@@ -31,10 +33,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Exclamation" type="TextureRect" parent="."]
+[node name="PendingQuest" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 76.0
-offset_top = 2.0
-offset_right = 92.0
-offset_bottom = 18.0
+offset_left = 82.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
 texture = ExtResource("3_y0mc8")

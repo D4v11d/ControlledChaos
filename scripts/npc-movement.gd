@@ -1,9 +1,13 @@
 class_name Npc extends CharacterBody2D
 
+@onready var game_manager: GameManager = $"../../GameManager"
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
-@onready var player_detection = $PlayerDetection if has_node("PlayerDetection") else null
 @onready var quest_icon: Sprite2D = $QuestIcon
+
+@onready var player_detection = $PlayerDetection if has_node("PlayerDetection") else null
+@onready var player_hit_area: Area2D = $PlayerHitArea if has_node("PlayerHitArea") else null
 
 @export var initial_direction: Vector2
 @export var speed: float
@@ -12,6 +16,8 @@ class_name Npc extends CharacterBody2D
 @export var quest_id: int
 @export var has_quest: bool
 @export var is_destination_npc: bool
+@export var dialog_lines: Array[String]
+@export var taxi_dialog_lines: Array[String]
 
 const STOP_THRESHOLD = 5.0
 
@@ -21,6 +27,7 @@ var target_position: Vector2
 var is_moving := true
 
 func _ready() -> void:
+	
 	if initial_direction:
 		current_direction = initial_direction
 	update_animation()
@@ -30,6 +37,7 @@ func _ready() -> void:
 		
 	if has_quest:
 		quest_icon.visible = true
+		
 
 func _physics_process(delta: float) -> void:
 	if not is_moving:
@@ -55,3 +63,9 @@ func update_animation() -> void:
 			animated_sprite_2d.play("move-right")
 			animated_sprite_2d.flip_h = direction.x < 0
 			last_direction = Vector2.RIGHT if direction.x > 0 else Vector2.LEFT
+			
+
+
+func _on_player_hit_area_body_entered(body: Node2D) -> void:
+	if player_hit_area and body is Player:
+		game_manager.respawn_player()

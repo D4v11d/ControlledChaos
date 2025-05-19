@@ -4,6 +4,8 @@ var npc_name: String
 var show_talk_action := false
 var can_start_dialog := true
 
+var is_first_dialog := true # used to complete one of the first quests
+
 @onready var npc: Npc = $".."
 @onready var talk_again_timer: Timer = $"../TalkAgainTimer"
 
@@ -16,26 +18,26 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if show_talk_action and can_start_dialog:
 		if Input.is_action_just_pressed("action"):
-			var lines: Array[String] = [
-				"Hello",
-				"My Name is: " + npc_name,
-				"Nice to meet you"
-			]
+			if is_first_dialog:
+				game_manager.complete_quest(1)
+				is_first_dialog = false
+				
 			can_start_dialog = false
-			player.press_e.visible = false
+			player.talk.visible = false
 			player.can_move = false
-			DialogManager.start_dialog(global_position, lines, self)  # Pass self
+			DialogManager.start_dialog(global_position, npc.dialog_lines, self)
 			npc.is_moving = false
 
 func _on_body_entered(body: Node2D) -> void:
 	print("npc body entered")
-	if body is Player and npc.quest_icon.visible:
+	if body is Player and npc.quest_icon.visible and npc.has_quest:
 		show_talk_action = true
-		player.press_e.visible = true
+		player.talk.visible = true
 
 func _on_body_exited(body: Node2D) -> void:
-	show_talk_action = false
-	player.press_e.visible = false
+	if body is Player:
+		show_talk_action = false
+		player.talk.visible = false
 
 func set_npc_name(name: String) -> void:
 	npc_name = name
@@ -47,7 +49,7 @@ func on_dialog_end(detection: PlayerDetection) -> void:
 	player.can_move = true
 	talk_again_timer.start()
 	
-	if npc.has_quest == true and not npc.is_destination_npc:
+	if npc.has_quest == true and not npc.is_destination_npc and npc.quest_id < 10:
 		print("adding quest")
 		game_manager.add_quest(npc.quest_id)
 		npc.has_quest = false

@@ -2,7 +2,8 @@ class_name Player extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
-@onready var press_e: AnimatedSprite2D = $PressE
+@onready var talk: AnimatedSprite2D = $Talk
+@onready var drive: AnimatedSprite2D = $Drive
 
 const SPEED = 75.0
 

@@ -15,13 +15,16 @@ var current_detection: PlayerDetection  # Store the PlayerDetection instance
 
 signal endOfDialog(detection: PlayerDetection)
 
-func start_dialog(position: Vector2, lines: Array[String], detection: PlayerDetection):
+func start_dialog(position: Vector2, lines: Array[String], detection: PlayerDetection = null):
 	if is_dialog_active:
 		return
-	
+
 	dialog_lines = lines
 	text_box_position = position
-	current_detection = detection  # Store the detection instance
+
+	if detection:
+		current_detection = detection
+
 	_show_text_box()
 	
 	is_dialog_active = true
